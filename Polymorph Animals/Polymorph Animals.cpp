@@ -2,11 +2,47 @@
 //
 
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+// Clase base
+class Animal {
+public:
+    // Método virtual puro
+    virtual void speak() const = 0;
+
+    // Destructor virtual
+    virtual ~Animal() {}
+};
+
+// Clase Dog
+class Dog : public Animal {
+public:
+    void speak() const override {
+        cout << "Woof! Woof!" << endl;
+    }
+};
+
+// Clase Cat
+class Cat : public Animal {
+public:
+    void speak() const override {
+        cout << "Meow! Meow!" << endl;
+    }
+};
+
+int main() {
+    Dog dog;
+    Cat cat;
+
+    cout << "Dog says: ";
+    dog.speak();
+
+    cout << "Cat says: ";
+    cat.speak();
+
+    return 0;
 }
+
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
