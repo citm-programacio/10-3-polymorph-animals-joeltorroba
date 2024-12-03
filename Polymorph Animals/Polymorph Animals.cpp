@@ -2,43 +2,64 @@
 //
 
 #include <iostream>
+#include <string>
 using namespace std;
 
-// Clase base
+// Clase Animal
 class Animal {
 public:
-    // Método virtual puro
+    // Método virtual puro (abstracto)
     virtual void speak() const = 0;
 
     // Destructor virtual
-    virtual ~Animal() {}
+    virtual ~Animal() {
+        cout << "Destructor de Animal llamado" << endl;
+    }
 };
 
 // Clase Dog
 class Dog : public Animal {
 public:
+    // Sobrescribimos el método "speak" para que el perro diga "Woof!"
     void speak() const override {
-        cout << "Woof! Woof!" << endl;
+        cout << "Woof!" << endl;
+    }
+
+    // Destructor
+    ~Dog() override {
+        cout << "Destructor de Dog llamado" << endl;
     }
 };
 
 // Clase Cat
 class Cat : public Animal {
 public:
+    // Sobrescribimos el método "speak" para que el gato diga "Meow!"
     void speak() const override {
-        cout << "Meow! Meow!" << endl;
+        cout << "Meow! " << endl;
+    }
+
+    // Destructor
+    ~Cat() override {
+        cout << "Destructor de Cat llamado" << endl;
     }
 };
 
 int main() {
-    Dog dog;
-    Cat cat;
+    // Creamos un puntero a la clase base que apunta a un objeto derivado
+    Animal* animal1 = new Dog(); // Asignamos un objeto de tipo Dog
+    Animal* animal2 = new Cat(); // Asignamos un objeto de tipo Cat
 
-    cout << "Dog says: ";
-    dog.speak();
+    // Llamamos al método "speak"
+    cout << "El perro dice: ";
+    animal1->speak(); // Llama a la implementación en Dog
 
-    cout << "Cat says: ";
-    cat.speak();
+    cout << "El gato dice: ";
+    animal2->speak(); // Llama a la implementación en Cat
+
+    // Liberamos memoria y garantizamos que se llamen los destructores correctos
+    delete animal1; // Llama al destructor de Dog y luego al de Animal
+    delete animal2; // Llama al destructor de Cat y luego al de Animal
 
     return 0;
 }
